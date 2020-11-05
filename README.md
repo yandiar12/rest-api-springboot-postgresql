@@ -1,1 +1,1 @@
-# resst-api-springboot-postgresql
+# rest-api-springboot-postgresql
