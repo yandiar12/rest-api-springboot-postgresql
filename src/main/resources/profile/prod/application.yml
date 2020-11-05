@@ -1,0 +1,31 @@
+spring:
+    main.bannerMode: 'off'
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 2KB
+            max-file-size: 10MB
+            max-request-size: 10MB
+    profiles:
+        active: prod
+    datasource:
+        driver-class-name: oracle.jdbc.driver.OracleDriver
+        url: jdbc:oracle:thin:@10.14.158.145:1521/ap2ttrain.localdomainnnn
+        username: KCT
+        password: KCT
+        dataSourceClassName: oracle.jdbc.pool.OracleDataSource
+        pool-name: SpringBootHikariCP
+        maximum-pool-size: 50
+        connection-timeout: 20000
+        minimum-idle: 5
+        idle-timeout: 20000
+        
+server:
+    port: 8001
+    servlet:
+        context-path: /kct
+    error:
+        include-stacktrace: never
+
+file.upload-dir: c://foto_kct//
+path-folder-profile: profile
