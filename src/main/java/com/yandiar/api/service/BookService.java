@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +31,27 @@ public class BookService {
     @Autowired
     private BookRepository bookRepo;
     
-    public List<Book> findAll(int pageNo, int pageSize, String sortBy) {
+    public Response findAll(int pageNo, int pageSize, String sortBy) {
+        Response res = new Response();
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        Page<Book> books = bookRepo.findAll(paging);
-        if(books.hasContent()) {
-            return books.getContent();
+        Slice<Book> books = bookRepo.findAll(paging);
+        if (books.hasContent()) {
+            res.setMessage("success");
         } else {
-            return new ArrayList<Book>();
+            res.setMessage("Data Not Found");
         }
+        res.setData(books);
+        return res;
+    }
+    
+    public Response findAllByName(String name, String sortBy) {
+        Response res = new Response();
+        Pageable paging = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(sortBy));
+        Slice<Book> page = bookRepo.findAllByNameContainingIgnoreCase(name, paging);
+        
+        res.setMessage("success");
+        res.setData(page);
+        return res;
     }
     
     public Book findById(Long id) {

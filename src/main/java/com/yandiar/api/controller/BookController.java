@@ -47,13 +47,16 @@ public class BookController {
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy) {
         Response res = new Response();
-        List<Book> lstBooks = bookService.findAll(pageNo, pageSize, sortBy);
-        if (lstBooks.isEmpty()) {
-            res.setMessage("Data Not Found");
-            return new ResponseEntity<>(res, HttpStatus.OK);
-        }
-        res.setMessage("Success");
-        res.setData(lstBooks);
+        res = bookService.findAll(pageNo, pageSize, sortBy);
+        return ResponseEntity.ok(res);
+    }
+    
+    @GetMapping(value = "book/findallbyname")
+    public ResponseEntity<?> findAllByName(HttpServletRequest req, HttpServletResponse resp,
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        Response res = new Response();
+        res = bookService.findAllByName(name, sortBy);
         return ResponseEntity.ok(res);
     }
     
