@@ -50,6 +50,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class AppServer {
     public static final String WEB_PORTAL = "WEBPORTAL";
     public static final String JWT_SECRET_KEY = "s3cretK3y";
+    public static final long JWT_EXPIRED = 1800000;
     
     public static String ObjectToString(Object obj){
         return obj==null?null:obj.toString();

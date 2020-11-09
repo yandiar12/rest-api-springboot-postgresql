@@ -5,6 +5,7 @@
  */
 package com.yandiar.api.model.request;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,17 +15,22 @@ import lombok.ToString;
 
 /**
  *
- * @author USER
+ * @author YAR
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-public class LoginReq implements Serializable {
+public class UserReq implements Serializable {
     
-    private static final long serialVersionUID = 187346113975041976L;
-    
+    @ApiModelProperty(notes = "Email", position = 1, required = true)
     private String email;
-    private String password;
+    
+    @ApiModelProperty(notes = "Name", position = 2, required = true)
+    private String name;
+    
+    @ApiModelProperty(notes = "Password", position = 3, required = true)
+    private String passwd;
+    
 }

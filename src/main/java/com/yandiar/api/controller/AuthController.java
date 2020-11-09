@@ -6,11 +6,14 @@
 package com.yandiar.api.controller;
 
 import com.yandiar.api.common.AppServer;
+import com.yandiar.api.common.TokenUtil;
 import com.yandiar.api.model.HeaderConstant;
 import com.yandiar.api.model.response.ResponseModel;
 import com.yandiar.api.model.dto.UserDto;
 import com.yandiar.api.model.UserToken;
 import com.yandiar.api.model.request.LoginReq;
+import com.yandiar.api.model.request.UserReq;
+import com.yandiar.api.model.response.Response;
 import com.yandiar.api.service.AuthService;
 import com.yandiar.api.service.UserService;
 import io.jsonwebtoken.Claims;
@@ -22,12 +25,14 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,38 +56,28 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "auth/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "API Login", response = ResponseModel.class)
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = HeaderConstant.APPSOURCE, required = true, paramType = "header", dataType = "string")
-    })
-
-    private ResponseEntity<?> login(HttpServletRequest req, HttpServletResponse resp, @RequestBody LoginReq login) throws ServletException {
-        
-        String appsource = req.getHeader(HeaderConstant.APPSOURCE);
-        
-        ResponseModel res = authService.login(login.getIduser(), login.getPassword(), appsource);
-        if (res.isSuccess()) {
-            UserDto dto = new UserDto();
-            try {
-                dto = AppServer.decodeResponseModel(res, UserDto.class);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            resp.setHeader(HeaderConstant.AUTHORIZATION, dto.getToken());
-        }
-
-        return new ResponseEntity<ResponseModel>(res, HttpStatus.OK);
+    @PostMapping(value = "auth/signin", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "API Sign In", response = ResponseModel.class)
+    private ResponseEntity<?> login(HttpServletRequest req, HttpServletResponse resp, 
+            @Valid @RequestBody LoginReq login) throws ServletException {
+        Response res = authService.login(login);
+        return new ResponseEntity<Response>(res, HttpStatus.OK);
     }
     
     
-//    @PostMapping(value = "auth/user/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @ApiOperation(value = "User Registration", response = ResponseModel.class, notes = "String")
-//    @ApiImplicitParam(name = HeaderConstant.APPSOURCE, required = true, paramType = "header", dataType = "string")
-//    private ResponseEntity<?> registerUser(HttpServletRequest req, HttpServletResponse resp, @RequestBody RegisterUserReq registerReq) throws ServletException {
-//        ResponseModel res = userService.setRegisterUser(registerReq);
-//        return new ResponseEntity<ResponseModel>(res, HttpStatus.OK);
-//    }
+    @PostMapping(value = "auth/signup", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "User Registration", response = Response.class, notes = "String")
+    private ResponseEntity<?> registerUser(HttpServletRequest req, HttpServletResponse resp, 
+            @Valid @RequestBody UserReq userReq) throws ServletException {
+        Response res = userService.registerUser(userReq);
+        return new ResponseEntity<Response>(res, HttpStatus.OK);
+    }
+    
+    @GetMapping(value = "test")
+    private ResponseEntity<?> test(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+        String res = "Hello....";
+        return new ResponseEntity<String>(res, HttpStatus.OK);
+    }
 
     @PostMapping(value = "auth/secure/validate")
     @ApiOperation(value = "Validate JWT Token", notes = "Called by filter to validate user token",
@@ -99,7 +94,7 @@ public class AuthController {
             UserToken user = AppServer.decodeResponseModel(claim.getSubject(), UserToken.class);
             String appsource = req.getHeader(HeaderConstant.APPSOURCE);
 
-            ResponseModel model = authService.getValidasiToken(user.getUserName(), appsource, token);
+            ResponseModel model = authService.getValidasiToken(user.getEmail(), appsource, token);
 
             if (model.isSuccess()) {
                 resp.setHeader(HeaderConstant.AUTHORIZATION, token);

@@ -22,7 +22,6 @@ import lombok.ToString;
 @ToString
 public class UserToken {
     private static final long serialVersionUID = 2676415386199858891L;
-    private String userName; 
-    private String mail; 
-    private String unitId; 
+    private String email; 
+    private String name; 
 }
