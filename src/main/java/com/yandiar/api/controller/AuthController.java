@@ -6,10 +6,8 @@
 package com.yandiar.api.controller;
 
 import com.yandiar.api.common.AppServer;
-import com.yandiar.api.common.TokenUtil;
 import com.yandiar.api.model.HeaderConstant;
 import com.yandiar.api.model.response.ResponseModel;
-import com.yandiar.api.model.dto.UserDto;
 import com.yandiar.api.model.UserToken;
 import com.yandiar.api.model.request.LoginReq;
 import com.yandiar.api.model.request.UserReq;
@@ -21,7 +19,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

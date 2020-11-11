@@ -9,8 +9,6 @@ import com.yandiar.api.model.entity.User;
 import com.yandiar.api.model.request.UserReq;
 import com.yandiar.api.model.response.Response;
 import com.yandiar.api.repository.UserRepository;
-import java.util.Base64;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;

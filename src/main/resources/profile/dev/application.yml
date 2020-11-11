@@ -25,12 +25,15 @@ spring:
         url: jdbc:postgresql://localhost:5432/db_book
         username: user1
         password: bismillah2x
-        pool-name: SpringBootHikariCP
-        maximum-pool-size: 50
-        connection-timeout: 20000
-        minimum-idle: 5
-        idle-timeout: 20000
         platform: postgres
+#        data-source-class-name: org.postgresql.ds.PGSimpleDataSource
+#        hikari:
+#            pool-name: SpringBootHikariCP
+#            maximum-pool-size: 20
+#            connection-timeout: 2000000
+#            minimum-idle: 5
+#            idle-timeout: 30000
+        
         
 server:
     port: 5000

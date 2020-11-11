@@ -6,7 +6,6 @@
 package com.yandiar.api.repository;
 
 import com.yandiar.api.model.entity.User;
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

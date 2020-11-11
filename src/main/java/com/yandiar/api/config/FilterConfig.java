@@ -2,7 +2,6 @@ package com.yandiar.api.config;
 
 
 import com.yandiar.api.filter.JwtFilter;
-import com.yandiar.api.service.AuthService;
 import com.yandiar.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

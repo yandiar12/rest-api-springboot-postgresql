@@ -5,19 +5,17 @@
  */
 package com.yandiar.api.service;
 
-import com.yandiar.api.common.AppServer;
 import com.yandiar.api.common.TokenUtil;
 import com.yandiar.api.model.response.ResponseModel;
-import com.yandiar.api.model.dto.UserDto;
 import com.yandiar.api.model.UserToken;
 import com.yandiar.api.model.entity.User;
 import com.yandiar.api.model.request.LoginReq;
 import com.yandiar.api.model.response.Response;
 import com.yandiar.api.repository.UserRepository;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +32,31 @@ public class AuthService {
     
     public Response login(LoginReq login) {
         Response res = new Response();
-        User user = userRepo.findUserByEmail(login.getEmail());
-        String token = TokenUtil.buildJWTToken(new UserToken(user.getEmail(), user.getName()));
-        res.setMessage("success login");
-        res.setData(token);
+        Map<String, String> map = new HashMap<>();
+        Boolean userExists = userRepo.existsByEmail(login.getEmail());
+        if (userExists) {
+            User user = userRepo.findUserByEmail(login.getEmail());
+            // check password
+            String pass = DigestUtils.sha256Hex(login.getPassword());
+            if (!pass.equals(user.getPasswd())) {
+                res.setMessage("Wrong password, login failed");
+                res.setData(null);
+            } else {
+            
+                // build JWT token
+                String token = TokenUtil.buildJWTToken(new UserToken(user.getEmail(), user.getName()));
+
+                // response
+                map.put("email", user.getEmail());
+                map.put("name", user.getName());
+                map.put("token", token);
+                res.setMessage("success login");
+                res.setData(map);
+            }
+        } else {
+            res.setMessage("Wrong email, login failed");
+            res.setData(null);
+        }
         return res;
     }
 
