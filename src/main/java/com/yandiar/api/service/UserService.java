@@ -5,6 +5,7 @@
  */
 package com.yandiar.api.service;
 
+import com.yandiar.api.exception.UnprocessableEntityException;
 import com.yandiar.api.model.entity.User;
 import com.yandiar.api.model.request.UserReq;
 import com.yandiar.api.model.response.Response;
@@ -45,11 +46,9 @@ public class UserService {
         
         Boolean exists = userRepo.existsByEmail(user.getEmail());
         if (exists) {
-            res.setMessage("Email is already exists");
-            res.setData(null);
-            return res;
+            throw new UnprocessableEntityException("Email is already exists");
         }
-
+        
         userData.setEmail(user.getEmail());
         userData.setName(user.getName());
         userData.setPasswd(DigestUtils.sha256Hex(user.getPasswd()));

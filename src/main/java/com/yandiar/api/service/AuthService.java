@@ -6,6 +6,7 @@
 package com.yandiar.api.service;
 
 import com.yandiar.api.common.TokenUtil;
+import com.yandiar.api.exception.UnprocessableEntityException;
 import com.yandiar.api.model.response.ResponseModel;
 import com.yandiar.api.model.UserToken;
 import com.yandiar.api.model.entity.User;
@@ -39,8 +40,7 @@ public class AuthService {
             // check password
             String pass = DigestUtils.sha256Hex(login.getPassword());
             if (!pass.equals(user.getPasswd())) {
-                res.setMessage("Wrong password, login failed");
-                res.setData(null);
+               throw new UnprocessableEntityException("Invalid email or password");
             } else {
             
                 // build JWT token
@@ -54,8 +54,7 @@ public class AuthService {
                 res.setData(map);
             }
         } else {
-            res.setMessage("Wrong email, login failed");
-            res.setData(null);
+            throw new UnprocessableEntityException("Invalid email or password");
         }
         return res;
     }

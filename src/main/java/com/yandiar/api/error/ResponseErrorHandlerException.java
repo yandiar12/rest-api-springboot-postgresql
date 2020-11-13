@@ -6,6 +6,7 @@
 package com.yandiar.api.error;
 
 import com.yandiar.api.exception.ApiError;
+import com.yandiar.api.exception.UnprocessableEntityException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.ConstraintViolation;
@@ -157,6 +158,15 @@ public class ResponseErrorHandlerException extends ResponseEntityExceptionHandle
         ex.getSupportedMediaTypes().forEach(t -> builder.append(t + " "));
 
         final ApiError apiError = new ApiError(415, HttpStatus.UNSUPPORTED_MEDIA_TYPE, ex.getLocalizedMessage(), builder.substring(0, builder.length() - 2));
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getErrorStatus());
+    }
+    
+    // 422
+    @ExceptionHandler({ UnprocessableEntityException.class })
+    public ResponseEntity<Object> handleUnprocessableEntity(final UnprocessableEntityException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+        String error = ex.getLocalizedMessage();
+
+        final ApiError apiError = new ApiError(422, HttpStatus.UNPROCESSABLE_ENTITY, ex.getLocalizedMessage(), error);
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getErrorStatus());
     }
 

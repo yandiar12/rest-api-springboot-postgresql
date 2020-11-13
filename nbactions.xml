@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
         <action>
-            <actionName>CUSTOM-clean install staging</actionName>
-            <displayName>clean install staging</displayName>
+            <actionName>CUSTOM-run for your life!!</actionName>
+            <displayName>run for your life!!</displayName>
+            <goals>
+                <goal>spring-boot:run</goal>
+                
+            </goals>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <activatedProfiles>
+                <activatedProfile>dev</activatedProfile>
+            </activatedProfiles>
+        </action>
+        <action>
+            <actionName>CUSTOM-Clean Install Dev</actionName>
+            <displayName>Clean Install Dev</displayName>
             <goals>
                 <goal>clean</goal>
                 <goal>install</goal>
@@ -15,8 +29,8 @@
             </activatedProfiles>
         </action>
         <action>
-            <actionName>CUSTOM-clean install prod</actionName>
-            <displayName>clean install prod</displayName>
+            <actionName>CUSTOM-Clean Install Prod</actionName>
+            <displayName>Clean Install Prod</displayName>
             <goals>
                 <goal>clean</goal>
                 <goal>install</goal>
@@ -28,17 +42,5 @@
                 <activatedProfile>prod</activatedProfile>
             </activatedProfiles>
         </action>
-        <action>
-            <actionName>CUSTOM-run for your life!!</actionName>
-            <displayName>run for your life!!</displayName>
-            <goals>
-                <goal>spring-boot:run</goal>
-            </goals>
-            <properties>
-                <skipTests>true</skipTests>
-            </properties>
-            <activatedProfiles>
-                <activatedProfile>dev</activatedProfile>
-            </activatedProfiles>
-        </action>
+        
     </actions>
