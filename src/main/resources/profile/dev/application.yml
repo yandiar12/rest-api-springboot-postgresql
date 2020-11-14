@@ -22,9 +22,12 @@ spring:
                         non_contextual_creation: true
     datasource:
         initialization-mode: always
-        url: jdbc:postgresql://localhost:5432/db_book
-        username: user1
-        password: bismillah2x
+#        url: jdbc:postgresql://localhost:5432/db_book
+#        username: user1
+#        password: bismillah2x
+        url: jdbc:postgresql://ec2-34-237-236-32.compute-1.amazonaws.com/d2k8f61phfpjnc
+        username: sthlwvoxfbedpi
+        password: 9867da58d106de02ac276143d2806ad17daf4cc205455a719a021338a015a702
         platform: postgres
 #        data-source-class-name: org.postgresql.ds.PGSimpleDataSource
 #        hikari:
