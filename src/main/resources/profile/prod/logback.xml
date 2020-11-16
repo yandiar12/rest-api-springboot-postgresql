@@ -69,15 +69,15 @@
         </encoder>
     </appender>
 
-    <logger name="com.iconpln.kct" level="debug" additivity="false">
+    <logger name="com.yandiar.api" level="debug" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
-    <logger name="com.iconpln.kct" level="Error"
+    <logger name="com.yandiar.api" level="Error"
             additivity="false">
         <appender-ref ref="FILE-INSERT-ERROR" />
     </logger> 
 
-    <logger name="com.iconpln.kct" level="Info"
+    <logger name="com.yandiar.api" level="Info"
             additivity="false">
         <appender-ref ref="FILE-INSERT-INFO" />
     </logger>  

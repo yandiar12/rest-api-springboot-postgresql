@@ -6,26 +6,39 @@ spring:
             file-size-threshold: 2KB
             max-file-size: 10MB
             max-request-size: 10MB
+    mvc: 
+        throw-exception-if-no-handler-found: true
+        static-path-pattern: /swagger*
     profiles:
         active: prod
+    jpa:
+        hibernate: 
+            ddl-auto: none
+        properties: 
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                jdbc: 
+                    lob: 
+                        non_contextual_creation: true
     datasource:
-        driver-class-name: oracle.jdbc.driver.OracleDriver
-        url: jdbc:oracle:thin:@10.14.158.145:1521/ap2ttrain.localdomainnnn
-        username: KCT
-        password: KCT
-        dataSourceClassName: oracle.jdbc.pool.OracleDataSource
-        pool-name: SpringBootHikariCP
-        maximum-pool-size: 50
-        connection-timeout: 20000
-        minimum-idle: 5
-        idle-timeout: 20000
+        initialization-mode: always
+        platform: postgres
+        url: jdbc:postgresql://ec2-34-237-236-32.compute-1.amazonaws.com/d2k8f61phfpjnc
+        username: sthlwvoxfbedpi
+        password: 9867da58d106de02ac276143d2806ad17daf4cc205455a719a021338a015a702
+#        data-source-class-name: org.postgresql.ds.PGSimpleDataSource
+#        hikari:
+#            pool-name: SpringBootHikariCP
+#            maximum-pool-size: 20
+#            connection-timeout: 2000000
+#            minimum-idle: 5
+#            idle-timeout: 30000
+        
         
 server:
-    port: 8001
+    port: 5000
     servlet:
-        context-path: /kct
+        context-path: /api
     error:
         include-stacktrace: never
 
-file.upload-dir: c://foto_kct//
-path-folder-profile: profile
