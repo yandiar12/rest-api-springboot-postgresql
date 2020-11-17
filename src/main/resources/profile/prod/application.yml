@@ -42,3 +42,5 @@ server:
     error:
         include-stacktrace: never
 
+file:
+    upload-dir: upload_files/
