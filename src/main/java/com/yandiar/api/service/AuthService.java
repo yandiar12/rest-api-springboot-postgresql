@@ -59,16 +59,4 @@ public class AuthService {
         return res;
     }
 
-    public ResponseModel getValidasiToken(String iduser, String appsource, String token) {
-        ResponseModel res = new ResponseModel();
-        
-        return res;
-    }
-
-    public ResponseModel logout(String username, String token) {
-        ResponseModel res = new ResponseModel();
-        
-        return res;
-    }
-
 }
