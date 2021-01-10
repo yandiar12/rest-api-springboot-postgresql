@@ -58,5 +58,22 @@ public class UserService {
         res.setData(null);
         return res;
     }
+    
+    public Response update(UserReq user) {
+        Response res = new Response();
+        User userData = new User();
+        
+        userData = userRepo.findUserByEmail(user.getEmail());
+        if (userData == null) {
+            throw new UnprocessableEntityException("Email not found");
+        }
+        
+        userData.setName(user.getName());
+        System.out.println("user.getName(): "+user.getName());
+        userRepo.save(userData);
+        res.setMessage("User successfully updated");
+        res.setData(null);
+        return res;
+    }
 
 }

@@ -42,4 +42,7 @@ public class User {
     
     @Column(name = "passwd")
     private String passwd;
+    
+    @Column(name = "avatar_url")
+    private String avatarUrl;
 }

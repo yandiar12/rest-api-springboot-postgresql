@@ -50,6 +50,7 @@ public class AuthService {
                 map.put("email", user.getEmail());
                 map.put("name", user.getName());
                 map.put("token", token);
+                map.put("avatarUrl", user.getAvatarUrl());
                 res.setMessage("success login");
                 res.setData(map);
             }
