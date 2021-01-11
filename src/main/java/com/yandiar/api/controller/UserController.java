@@ -19,9 +19,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -36,6 +38,14 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+    
+    @GetMapping(value = "user")
+    @ApiOperation(value = "User Update", response = Response.class, notes = "String")
+    private ResponseEntity<?> getUser(HttpServletRequest req, HttpServletResponse resp, 
+            @Valid @RequestParam String email) throws ServletException {
+        Response res = userService.getUserbyEmail(email);
+        return new ResponseEntity<Response>(res, HttpStatus.OK);
+    }
     
     @PostMapping(value = "user/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "User Update", response = Response.class, notes = "String")

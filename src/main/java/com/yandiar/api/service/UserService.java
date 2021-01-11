@@ -69,7 +69,6 @@ public class UserService {
         }
         
         userData.setName(user.getName());
-        System.out.println("user.getName(): "+user.getName());
         userRepo.save(userData);
         res.setMessage("User successfully updated");
         res.setData(null);
