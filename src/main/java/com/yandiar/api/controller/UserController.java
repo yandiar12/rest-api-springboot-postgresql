@@ -40,7 +40,7 @@ public class UserController {
     private UserService userService;
     
     @GetMapping(value = "user")
-    @ApiOperation(value = "User Update", response = Response.class, notes = "String")
+    @ApiOperation(value = "User", response = Response.class, notes = "String")
     private ResponseEntity<?> getUser(HttpServletRequest req, HttpServletResponse resp, 
             @Valid @RequestParam String email) throws ServletException {
         Response res = userService.getUserbyEmail(email);
